@@ -1,0 +1,6 @@
+---
+- hosts: mcservers
+  become: True
+  roles:
+    - common
+    - ssh

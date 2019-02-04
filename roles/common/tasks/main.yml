@@ -1,0 +1,75 @@
+---
+- name: wheel group exist
+  group:
+    name: wheel
+    gid: "11"
+    state: present
+
+- name: add users
+  user:
+    name: "{{ item.username }}"
+    shell: /bin/bash
+  with_items: "{{ users }}"
+
+- name: add admin to wheel group
+  user:
+    name: "{{ item.username }}"
+    groups: wheel
+    append: yes
+  with_items: "{{ users }}"
+  register: add_wheel_group
+  when: item.is_admin | default(false)
+
+- name: sudo configured
+  copy:
+    src: sudoers
+    dest: /etc/sudoers
+    owner: root
+    group: root
+    mode: 0440
+  when: add_wheel_group is success
+
+- name: su configured
+  copy:
+    src: su
+    dest: /etc/pam.d/su
+    owner: root
+    group: root
+    mode: 0644
+  when: add_wheel_group is success
+
+- name: sysctl.conf configured
+  sysctl:
+    name: "{{ item.k }}"
+    value: "{{ item.v }}"
+    state: present
+    reload: yes
+  with_items: "{{ sysctl_dict }}"
+
+- name: ensure ufw is installed
+  apt:
+    pkg: ufw
+    update_cache: True
+    cache_valid_time: "{{ apt_cache_valid_time }}"
+  notify: restart ufw
+
+- name: ensure ufw is configured
+  template:
+    src: ufw.j2
+    dest: /etc/default/ufw
+    owner: root
+    group: root
+    mode: 0644
+
+- name: ensure ufw always allows an ssh connection
+  ufw:
+    rule: allow
+    port: "{{ ssh_port }}"
+    proto: tcp
+    state: reloaded
+
+- name: ensure ufw start on a startup
+  service:
+    name: ufw
+    state: started
+    enabled: yes

@@ -1,0 +1,22 @@
+---
+ufw_ipv6: no
+
+sysctl_dict:
+  - { k: net.ipv4.conf.default.rp_filter            , v: 1 }
+  - { k: net.ipv4.conf.all.rp_filter                , v: 1 }
+  - { k: net.ipv4.tcp_syncookies                    , v: 1 }
+  - { k: net.ipv4.tcp_max_syn_backlog               , v: 2048 }
+  - { k: net.ipv4.tcp_synack_retries                , v: 2 }
+  - { k: net.ipv4.tcp_syn_retries                   , v: 5 }
+  - { k: net.ipv4.conf.all.accept_redirects         , v: 0 }
+  - { k: net.ipv4.conf.default.accept_redirects     , v: 0 }
+  - { k: net.ipv4.conf.all.send_redirects           , v: 0 }
+  - { k: net.ipv4.conf.default.send_redirects       , v: 0 }
+  - { k: net.ipv4.conf.all.accept_source_route      , v: 0 }
+  - { k: net.ipv4.conf.default.accept_source_route  , v: 0 }
+  - { k: net.ipv4.conf.all.log_martians             , v: 1 }
+  - { k: net.ipv4.icmp_ignore_bogus_error_responses , v: 1 }
+  - { k: net.ipv6.conf.all.disable_ipv6             , v: 1 }
+  - { k: net.ipv6.conf.default.disable_ipv6         , v: 1 }
+  - { k: net.ipv4.icmp_echo_ignore_broadcasts       , v: 1 }
+  - { k: net.ipv4.icmp_echo_ignore_all              , v: 1 }

@@ -1,0 +1,6 @@
+---
+users:
+  - username: tsukune
+    key: "https://github.com/tsukune-ch.keys"
+    is_admin: True
+  - username: hallelujahhh
