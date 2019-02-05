@@ -20,3 +20,6 @@ sysctl_dict:
   - { k: net.ipv6.conf.default.disable_ipv6         , v: 1 }
   - { k: net.ipv4.icmp_echo_ignore_broadcasts       , v: 1 }
   - { k: net.ipv4.icmp_echo_ignore_all              , v: 1 }
+
+common_packages:
+  - unzip
