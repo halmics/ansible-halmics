@@ -1,0 +1,3 @@
+---
+openjdk_version: 11
+openjdk_package: "openjdk-{{ openjdk_version }}-jre"
