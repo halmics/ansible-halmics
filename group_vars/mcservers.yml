@@ -1,4 +1,6 @@
 ---
+openjdk_version: 8
+
 users:
   - username: tsukune
     key: "https://github.com/tsukune-ch.keys"
