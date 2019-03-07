@@ -22,4 +22,5 @@ sysctl_dict:
   - { k: net.ipv4.icmp_echo_ignore_all              , v: 1 }
 
 common_packages:
+  - git
   - unzip
