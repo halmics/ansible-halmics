@@ -5,7 +5,7 @@
     key: "{{ item.key }}"
     exclusive: yes
     state: present
-  with_items: "{{ users }}"
+  with_items: "{{ os_users }}"
   register: authorized_keys
   when: item.key is defined
 

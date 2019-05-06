@@ -95,6 +95,6 @@ Subsystem sftp /usr/lib/openssh/sftp-server
 # and ChallengeResponseAuthentication to 'no'.
 UsePAM no
 
-{% if users %}
-AllowUsers {{ users | join(' ', attribute='username') }}
+{% if os_users %}
+AllowUsers {{ os_users | join(' ', attribute='username') }}
 {% endif %}

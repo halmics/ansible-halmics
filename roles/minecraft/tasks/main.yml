@@ -1,0 +1,9 @@
+---
+- name: add shared directory
+  file:
+    path: "/usr/local/{{ moderator_group }}"
+    state: directory
+    owner: root
+    group: "{{ moderator_group }}"
+    # x2xxx: set SGID in order to unify group ID of files
+    mode: 02770

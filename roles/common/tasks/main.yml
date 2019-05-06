@@ -11,18 +11,32 @@
     gid: "11"
     state: present
 
+- name: add groups
+  group:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ os_groups | default([]) }}"
+  register: add_groups
+
 - name: add users
   user:
     name: "{{ item.username }}"
     shell: /bin/bash
-  with_items: "{{ users }}"
+  with_items: "{{ os_users }}"
+
+- name: add users to appropriate group
+  user:
+    name: "{{ item.username }}"
+    groups: "{{ item.groups | default('') }}"
+    append: yes
+  with_items: "{{ os_users }}"
 
 - name: add admin to wheel group
   user:
     name: "{{ item.username }}"
     groups: wheel
     append: yes
-  with_items: "{{ users }}"
+  with_items: "{{ os_users }}"
   register: add_wheel_group
   when: item.is_admin | default(false)
 
