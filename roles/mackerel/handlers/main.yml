@@ -1,0 +1,5 @@
+---
+- name: restart mackerel-agent
+  service:
+    name: "{{ mackerel_agent_package }}"
+    state: restarted
