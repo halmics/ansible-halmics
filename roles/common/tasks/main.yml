@@ -71,7 +71,6 @@
     pkg: ufw
     update_cache: True
     cache_valid_time: "{{ apt_cache_valid_time }}"
-  notify: restart ufw
 
 - name: ensure ufw is configured
   template:
@@ -80,16 +79,29 @@
     owner: root
     group: root
     mode: 0644
+  notify: restart ufw
+
+- name: configure ufw defaults
+  ufw:
+    direction: "{{ item.direction }}"
+    policy: "{{ item.policy }}"
+  with_items:
+    - { direction: 'incoming', policy: 'deny' }
+    - { direction: 'outgoing', policy: 'allow' }
+  notify: restart ufw
+
+- name: enable ufw logging
+  ufw:
+    logging: "on"
+  notify: restart ufw
 
 - name: ensure ufw always allows an ssh connection
   ufw:
-    rule: allow
+    rule: limit
     port: "{{ ssh_port }}"
     proto: tcp
-    state: reloaded
+  notify: restart ufw
 
-- name: ensure ufw start on a startup
-  service:
-    name: ufw
-    state: started
-    enabled: yes
+- name: enable ufw
+  ufw:
+    state: enabled
