@@ -1,8 +1,8 @@
-[home-mcservers]
+[home_mcservers]
 127.0.0.1:10022
 
 [mcservers:children]
-home-mcservers
+home_mcservers
 
 [home:children]
-home-mcservers
+home_mcservers
