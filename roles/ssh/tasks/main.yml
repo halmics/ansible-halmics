@@ -17,5 +17,4 @@
     group: root
     mode: 0644
     backup: yes
-  when: authorized_keys is changed
   notify: restart sshd
