@@ -7,3 +7,11 @@
     group: "{{ moderator_group }}"
     # x2xxx: set SGID in order to unify group ID of files
     mode: 02770
+
+- name: ensure ufw always allows minecraft ports
+  ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: tcp
+  with_items: "{{ minecraft_ports }}"
+  notify: restart ufw

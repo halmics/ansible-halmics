@@ -1,0 +1,4 @@
+---
+minecraft_ports:
+  - "8123" # dynmap
+  - "25565" # minecraft
