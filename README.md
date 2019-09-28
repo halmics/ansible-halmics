@@ -1,4 +1,4 @@
-# halmics-ansible
+# ansible-halmics
 
 ## Setup
 
