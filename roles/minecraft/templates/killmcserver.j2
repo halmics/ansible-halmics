@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# {{ ansible_managed }}
+
+set -e
+
+filename=$(basename -- "$0")
+
+moderator_group="{{ moderator_group }}"
+ps=$(ps -aho user:32,pid,cmd | grep [j]ava)
+user=$(echo $ps | awk '{ print $1 }')
+pid=$(echo $ps | awk '{ print $2 }')
+lines=$(echo "$ps" | wc -l)
+
+if [[ $lines -eq 0 ]]; then
+  echo "${filename}: No process found"
+  exit 0
+fi
+
+if [[ $lines -gt 1 ]]; then
+  echo "${filename}: Multiple processes found!"
+  echo "$ps" | nl -s ": " -w 1
+  echo "${filename}: Which process do you want to kill? (num)"
+  read
+  if [[ "$REPLY" -gt 0 && "$REPLY" -le $lines ]]; then
+    user=$(echo "$ps" | sed -n ${REPLY}p | awk '{ print $1 }')
+    pid=$(echo "$ps" | sed -n ${REPLY}p | awk '{ print $2 }')
+  else
+    echo "${filename}: Invalid number"
+    exit 1
+  fi
+fi
+
+# Group validation
+getent group $moderator_group | cut -d ':' -f 4 | grep -E "${user}(,|$)" > /dev/null 2>&1
+if [[ $? -eq 0 ]]; then
+  kill -9 "$pid"
+  exit 0
+fi
+
+echo "${filename}: This process cannot be killed"
+exit 1

@@ -15,3 +15,20 @@
     proto: tcp
   with_items: "{{ minecraft_ports }}"
   notify: restart ufw
+
+- name: add killmcserver command
+  template:
+    src: killmcserver.j2
+    dest: "{{ minecraft_killmcserver_command_dir }}/{{ minecraft_killmcserver_command_name }}"
+    owner: root
+    group: "{{ moderator_group }}"
+    mode: 0750
+
+- name: allow moderator group to execute killmcserver command
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    line: >
+      %{{ moderator_group }} ALL=(%{{ moderator_group }})
+      NOPASSWD:{{ minecraft_killmcserver_command_dir }}/{{ minecraft_killmcserver_command_name }}
+    validate: 'visudo -cf %s'

@@ -2,3 +2,6 @@
 minecraft_ports:
   - "8123" # dynmap
   - "25565" # minecraft
+
+minecraft_killmcserver_command_name: killmcserver
+minecraft_killmcserver_command_dir: /usr/local/bin
