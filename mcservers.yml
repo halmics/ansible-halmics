@@ -2,8 +2,13 @@
 - hosts: mcservers
   become: True
   roles:
-    - common
-    - minecraft
-    - ssh
-    - openjdk
-    - mackerel
+    - role: common
+      tags: common
+    - role: minecraft
+      tags: minecraft
+    - role: ssh
+      tags: ssh
+    - role: openjdk
+      tags: openjdk
+    - role: mackerel
+      tags: mackerel
