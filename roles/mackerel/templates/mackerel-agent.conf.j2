@@ -1,1 +1,7 @@
 apikey = "{{ mackerel_agent_apikey }}"
+
+[plugin.checks.disk]
+command = ["check-disk", "--warning", "10%", "--critical", "5%", "--path", "/"]
+
+[plugin.checks.minecraft]
+command = ["check-tcp", "--hostname", "localhost", "--port", "25565", "--warning", "10", "--critical", "10"]

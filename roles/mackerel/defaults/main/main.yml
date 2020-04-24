@@ -4,3 +4,6 @@ mackerel_apt_key: https://mackerel.io/file/cert/GPG-KEY-mackerel-v2
 
 mackerel_agent_package: mackerel-agent
 mackerel_agent_conf_dir: /etc/mackerel-agent
+
+mackerel_plugin_packages:
+  - mackerel-check-plugins
