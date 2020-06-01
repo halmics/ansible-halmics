@@ -8,6 +8,12 @@
 sudo apt-get update && sudo apt-get install -y python2.7 python-simplejson
 ```
 
+### Host Machine
+
+```sh
+ansible-galaxy install -r requirements.yml
+```
+
 ## Usage
 
 e.g.

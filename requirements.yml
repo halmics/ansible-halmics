@@ -1,0 +1,3 @@
+---
+- src: tsukune_ch.canonical_livepatch
+  version: v1.0.0

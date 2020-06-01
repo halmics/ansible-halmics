@@ -12,3 +12,5 @@
       tags: openjdk
     - role: mackerel
       tags: mackerel
+    - role: tsukune_ch.canonical_livepatch
+      tags: canonical_livepatch
